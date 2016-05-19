@@ -1,2 +1,2 @@
 # CitiBike
-Analysis of CitiBike data
+Analysis of the CitiBike data
