@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 year = [2015]
-month = [4, 5, 6, 7, 8, 9, 10, 11, 12]
+month = [1,2,3]
 
 target_dir = '../data/temperature/raw_data/'
 

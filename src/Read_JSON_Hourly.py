@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 
-content = open('./20160301.json').read()
+content = open('../data/temperature/raw_data/20150704.json').read()
 config = json.loads(content)
 #print config['response']['features']['history']
 observations = config['history']['observations']
