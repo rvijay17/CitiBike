@@ -8,8 +8,9 @@ import feather
 import glob
 
 dirname = '../../../Data/CitiBike_Data/'
-filename = '201*.csv'
-feather_output_filename = 'bikedata.feather'
+filename = '201603*.csv'
+format = 'parquet' ## or 'feather'
+feather_output_filename = '../data/bikedata_201603.' + format
 listFiles = []
 
 # Read the data files
@@ -60,12 +61,17 @@ for fname in glob.glob(dirname + filename):
     bikedata.drop('dtstarttime', axis=1, inplace=True)
     # bikedata.drop('dtstoptime', axis=1, inplace=True)
 
-    print fname, ' - ', len(bikedata)
+    print(fname, ' - ', len(bikedata))
 
     listFiles.append(bikedata)
 
 df = pd.concat(listFiles)
-print len(df)
-feather.write_dataframe(df, dirname + feather_output_filename)
+print("Total rows - " + len(df))
 
-print "Successfully written into feather format"
+## Could have used a partitioning scheme for the parquet file
+if (format == 'parquet'):
+    df.to_parquet(feather_output_filename, compression='snappy')
+elif(format == 'feather'):
+    feather.write_dataframe(df, feather_output_filename)
+
+print("Successfully written into " + format + "format")
